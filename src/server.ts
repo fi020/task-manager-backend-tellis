@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello from Task Manager Backend (TypeScript)!');
 });
 
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 
 // Start the server
