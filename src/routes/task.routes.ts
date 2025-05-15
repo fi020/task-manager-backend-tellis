@@ -5,6 +5,7 @@ import {
   getTaskById,
   updateTask,
   deleteTask,
+  toggleTaskCompleted,
 } from "../controllers/task.controller";
 import { authenticate } from "../middleware/auth.middleware";
 
@@ -16,6 +17,7 @@ router.post("/", createTask);
 router.get("/", getTasks);
 router.get("/:id", getTaskById);
 router.put("/:id", updateTask);
+router.patch("/:id/toggle", toggleTaskCompleted);
 router.delete("/:id", deleteTask);
 
 export default router;
