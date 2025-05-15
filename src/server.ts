@@ -4,6 +4,7 @@ dotenv.config();
 import express, { Request, Response } from 'express';
 import authRoutes from './routes/auth.routes';
 import { connectDB } from './config/db';
+import taskRoutes from './routes/task.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use("/api/tasks", taskRoutes);
 
 
 // Start the server
