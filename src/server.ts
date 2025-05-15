@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 import express, { Request, Response } from 'express';
@@ -6,6 +7,11 @@ import { connectDB } from './config/db';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+    origin: 'http://localhost:5173', // your frontend (Vite dev server)
+    credentials: true,              // allow cookies if needed
+  }));
 
 // Middleware
 app.use(express.json());
