@@ -8,10 +8,23 @@ import { connectDB } from './config/db';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const allowedOrigins: string[] = [
+    // 'http://localhost:8084',
+    // 'https://staging.your-domain.com',
+    // 'https://your-domain.com',
+    process.env.LOCAL_ORIGINS,
+    process.env.VERCLE_FINAL_ORIGINS,
+    process.env.NETLIFY_FINAL_ORIGINS,
+    process.env.RANDOM_ORIGINS,
+    process.env.VERCLE_ORIGINS,
+    process.env.VERCLE_FINAL_ORIGINS,
+].filter((origin): origin is string => typeof origin === 'string');
+
+
 app.use(cors({
-    origin: 'http://localhost:5173', // your frontend (Vite dev server)
-    credentials: true,              // allow cookies if needed
-  }));
+    origin: allowedOrigins,
+    credentials: true,
+}));
 
 // Middleware
 app.use(express.json());
@@ -21,7 +34,7 @@ connectDB();
 // Routes
 app.get('/', (req: Request, res: Response) => {
     console.log('Received a GET request on /');
-  res.send('Hello from Task Manager Backend (TypeScript)!');
+    res.send('Hello from Task Manager Backend (TypeScript)!');
 });
 
 app.use('/api/auth', authRoutes);
@@ -29,5 +42,5 @@ app.use('/api/auth', authRoutes);
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
